@@ -1,8 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
-/* run this program using the console pauser or add your own getch, system("pause") or input loop */
-
+#include "structers/structers.h"
+#include "services/pharmacie-services.h"
+#include "services/pharmacie-print-functions.h"
+	
 int main(int argc, char *argv[]) {
+	
+	get();
+	
+	
 	return 0;
 }
