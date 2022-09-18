@@ -1,12 +1,12 @@
-typedef struct Produit{
+typedef struct Product{
 	int codeP;
 	char *nomP;
 	int quantiteP;
 	float prixP;
 	float prixTTC;
-}Produit;
+}Product;
 
 typedef struct ProduitAcheter {
-	Produit Produit;
+	Product Produit;
     struct tm date;
-};
+}ProduitAcheter;

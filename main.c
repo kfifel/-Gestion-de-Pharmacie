@@ -11,9 +11,9 @@
 int main() {
 	// le tableau principale
 	Product *product;
-	product = (Product *) malloc( 2 * sizeof(Product) );
+	product = (Product *) malloc( 3 * sizeof(Product) );
 	// la taille de tbleau principale
-	int len=2, *pLen;
+	int len=3, *pLen;
 	
 	// l'initialisation du tableau par un produit
 	product->codeP     =  1; 
@@ -22,12 +22,20 @@ int main() {
 	product->prixTTC   =  product->prixP + product->prixP * 15/100;  
 	product->quantiteP =  50;
 	product++;
+	
 	product->codeP     =  2; 
-	product->nomP      = "HydroCortizone"; 
+	product->nomP      = "Hydrocortizone"; 
 	product->prixP     =  39.45; 
 	product->prixTTC   =  product->prixP + product->prixP * 15/100;  
 	product->quantiteP =  50;
-	product--;
+	product++;
+	
+	product->codeP     =  3; 
+	product->nomP      = "Exemple"; 
+	product->prixP     =  9.45; 
+	product->prixTTC   =  product->prixP + product->prixP * 15/100;  
+	product->quantiteP =  50;
+	product = product - 2;
 	
 	pLen = &len; //pLen poin sur la taille de tableau 
 	
