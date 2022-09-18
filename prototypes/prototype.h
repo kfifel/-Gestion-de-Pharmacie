@@ -1,9 +1,9 @@
 
 //fontions de services
-bool productIsExist(int code, Product *product, int *len, int lenAdded);
-void getAllProducts( Product *product, int *len );
-void addProduct( Product *product, int *len );
-void addProducts( Product *product, int *len );
+bool productIsExist(int code, Product *product, int len);
+void getAllProducts( Product *product );
+//Product * addProduct( Product *product, int *len );
+Product * addProducts( Product *product );
 void getAllProductsByNom( Product *product );
 void getAllProductsByPrice( Product *product );
 void findProductByCode( Product *product,  int code );

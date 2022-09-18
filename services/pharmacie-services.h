@@ -1,82 +1,83 @@
 //    ------------------- Functions of  the projet -------------------    
    
-bool productIsExist(int code, Product *product, int *len, int lenAdded){
+bool productIsExist(int code, Product *product, int lenc){
+	printf("\n\ti'm in\n");
 	int i, exist = 0;
-	lenAdded = *len - lenAdded;
-	for( i = 0; i < lenAdded; i++){
-		if( product->codeP == code) exist = 1;
-		product++;
+	for( i = 0; i < lenc; i++){
+		if( product[i].codeP == code) exist = 1;
 	}
 	return exist? true : false;
 }
 
-void getAllProducts( Product *product, int *len ){
+void getAllProducts( Product *product ){
+	
+	printf("%x", product);
 	int i;
 	printTab();
-	printf("Liste All products : len: %s \n", (product + *len-1)->nomP);
-	for( i = 0; i < *len; i++) {
+	printf("Liste All products : len: %d \n", len);
+	for( i = 0; i < len; i++) {
 		printTab();
-		printf("Name of product : %s |  Prix : %.3fDH | PrixTTC : %.3fDH \n",product->nomP, product->prixP, product->prixTTC);
-		product++;
+		printf("Name of product : %s |  Prix : %.3fDH | PrixTTC : %.3fDH \n", product[i].nomP, product[i].prixP, product[i].prixTTC);
 	}
 	//free(productLocale);
 	system("pause");
 	
 }
 
-		               
-void addProduct( Product *product, int *len ){
-	bool exist;
-	*len = *len + 1;
-	product = realloc ( product, *len * sizeof( *product ) );
-	
-	Product *pProduct = product;
-	pProduct = pProduct + (*len-1);
-	do{
-		printTab();
-		printf("Saisez le Code de produit :  ");
-		scanf("%d", &pProduct->codeP);
-		
-		exist = productIsExist( pProduct->codeP, product, len, 1 );
-		
-		printTab();
-		if( exist ) printf("Product with code : %d deja exister ...\n", pProduct->codeP);
-		
-	}while( exist );
-	printf("Saisez le Nom de produit : ");
-	scanf("%s", &pProduct->nomP);
-	
-	printTab();
-	printf("Saisez la Quantite de produit : ");
-	scanf("%f", &pProduct->quantiteP);
-	
-	printTab();
-	printf("Saisez le Prix de produit : ");
-	scanf("%f", &pProduct->prixP);
-	
-	pProduct->prixTTC = pProduct->prixP + pProduct->prixP * 15 / 100;
-	
-	printTab();
-	printf("save with success\n");
-	pProduct= pProduct-(*len-1);
-	//free(pProduct);
-	system("pause");
-	
-}
+//		               
+//Product *addProduct( Product *product, int *len ){
+//	bool exist;
+//	*len = *len + 1;
+//	product = realloc ( product, *len * sizeof( *product ) );
+//	
+//	Product *pProduct;
+//	pProduct = product + ( *len - 1 );
+//	do{
+//		printTab();
+//		printf("Saisez le Code de produit :  ");
+//		scanf("%d", &pProduct->codeP);
+//		
+//		exist = productIsExist( pProduct->codeP, product, len, 1 );
+//		
+//		printTab();
+//		if( exist ) printf("Product with code : %d deja exister ...\n", pProduct->codeP);
+//		
+//	}while( exist );
+//	
+//	printf("Saisez le Nom de produit : ");
+//	scanf("%s", &pProduct->nomP);
+//	
+//	printTab();
+//	printf("Saisez la Quantite de produit : ");
+//	scanf("%f", &pProduct->quantiteP);
+//	
+//	printTab();
+//	printf("Saisez le Prix de produit : ");
+//	scanf("%f", &pProduct->prixP);
+//	
+//	pProduct->prixTTC = pProduct->prixP + pProduct->prixP * 15 / 100;
+//	
+//	printTab();
+//	printf("save with success\n");
+//	pProduct= pProduct-(*len-1);
+//	//free(pProduct);
+//	system("pause");
+//	return product;
+//}
 
-void addProducts( Product *product, int *len ){
+Product *addProducts( Product *product ){
 	bool exist;
-	int N, pos = 0;
+	int N, pos = 0, i;
+	char nom[50];
 	
 	printTab();
 	printf("Donner le nombre des produits que vous voullez ajoutez : ");
 	scanf("%d", &N);
 	
-	*len = *len + N;
-	product = realloc ( product, *len * sizeof( *product ) );
-	Product *pProduct = product;
-	
-	for( pProduct = product + ( *len - N ) ; pProduct  < pProduct + (*len); pProduct++ ){
+	len = len + N;    
+	product = realloc ( product, len * sizeof( *product ) );
+	printf("%x", product);
+	for( i = len - N ; i  < len; i++ ){
 		pos++;
 			printTab();
 			printf("---  les Donner de Produit N : %d --- \n", pos);
@@ -84,34 +85,35 @@ void addProducts( Product *product, int *len ){
 		do{
 			printTab();
 			printf("Saisez le Code de produit %d:  ", pos);
-			scanf("%d", &pProduct->codeP);
-			
-			exist = productIsExist( pProduct->codeP, product, len, N );
+			scanf("%d", &product[i].codeP);
+			printf("%d", product[i].codeP);
+			system("pause");
+			exist = productIsExist( product[i].codeP, product, len - N + pos - 1 ); // 0 1 2  len 3 
 			
 			printTab();
-			if( exist ) printf("le code  %d deja exister ...\n", pProduct->codeP);
+			if( exist ) printf("le code  %d deja exister ...\n", product[i].codeP);
 			
 		}while( exist );
 		
 		printf("Saisez le Nom de produit %d : ", pos);
-		scanf("%s", &pProduct->nomP);
-		
+		scanf("%s", nom);
+		strcpy(product[i].nomP ,nom);
 		
 		printTab();
 		printf("Saisez la Quantite de produit %d : ", pos);
-		scanf("%f", &pProduct->quantiteP);
+		scanf("%d", &product[i].quantiteP);
 		
 		printTab();
 		printf("Saisez le Prix de produit %d : ", pos);
-		scanf("%f", &pProduct->prixP);
+		scanf("%f", &product[i].prixP);
 		
-		pProduct->prixTTC = pProduct->prixP + pProduct->prixP * 15 / 100;
+		product[i].prixTTC = product[i].prixP + product[i].prixP * 15 / 100;
 		
 		printTab();
 		printf("Product n %d is saved with success\n", pos);
-		getAllProducts(product, len);
 		system("pause");
 	}
+	return product;
 }
 
 void getAllProductsByNom( Product *product ){
