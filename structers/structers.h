@@ -7,6 +7,7 @@ typedef struct Product{
 }Product;
 
 typedef struct ProduitAcheter {
-	Product Produit;
-    struct tm date;
+	int codeP;
+	int quantiteP;
+    struct tm *date;
 }ProduitAcheter;

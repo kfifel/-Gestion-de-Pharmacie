@@ -18,7 +18,7 @@ void getAllProducts( Product *product ){
 		printf("Name of product : %s |  Prix : %.3fDH | PrixTTC : %.3fDH \n", product[i].nomP, product[i].prixP, product[i].prixTTC);
 	}
 	//free(productLocale);
-	system("pause");
+	sleep(2);
 	
 }
 
@@ -59,7 +59,7 @@ Product *addProduct( Product *product ){
 	
 	printTab();
 	printf("Product n is saved with success\n");
-	system("pause");
+	sleep(2);
 	return product;
 }
 
@@ -121,7 +121,39 @@ void getAllProductsByPrice( Product *product ){
 	
 }
 
-void buyProduct( Product Product, int qte ) {
+void buyProduct( Product *product, ProduitAcheter *productToBuy ) {
+	int n = lenBuy, codeP, i;
+	bool exist;
+	productToBuy = realloc ( productToBuy , ++lenBuy * sizeof(ProduitAcheter));
+	printTab();
+	printf("Choisi Le Code De Product Que Vous Acheter: \n");
+	for( i = 0; i < len; i++) {
+		printTab();
+		printf("Code De Produit : %d |  Name Of Product : %s |  Prix : %.3fDH | PrixTTC : %.3fDH \n", product[i].codeP, product[i].nomP, product[i].prixP, product[i].prixTTC);
+	}
+	do{
+		codeP = getInt();
+		exist = productIsExist(codeP, product, len );
+		if( !exist ) printf("Produit n'est pas dans la list");
+	}while( !exist );
+	
+	printTab();
+	printf("Donner La Quantite Acheter :");
+	scanf("%d", &productToBuy[n].quantiteP );
+	
+	productToBuy[n].codeP = codeP;
+	
+	
+	
+	//definier le temps
+	time_t rawtime;
+    time( &rawtime );
+	productToBuy[n].date = localtime( &rawtime );
+	
+	
+	printTab();
+	printf("Bien Enregistrer .\n");
+	sleep(2);
 	
 }
 

@@ -4,18 +4,23 @@
 #include <string.h>
 #include <stdbool.h>
 	// la taille de tbleau principale
-	int len=3;
+	int len=3, lenBuy = 1;
 #include "structers/structers.h"
 #include "prototypes/prototype.h"
 #include "services/pharmacie-services.h"
 #include "services/pharmacie-print-functions.h"
 
 int main() {
+	//time
+	time_t rawtime;
+    time( &rawtime );
+    
 	// le tableau principale
 	Product *product;
 	product = (Product *) malloc( 3 * sizeof(Product) );
-
 	
+	ProduitAcheter *productAcheter;
+	productAcheter = (ProduitAcheter *) malloc( lenBuy * sizeof(ProduitAcheter) );
 	// l'initialisation du tableau par un produit
 	product[0].codeP     =  1; 
 	strcpy(product[0].nomP , "Dolipran"); 
@@ -35,6 +40,9 @@ int main() {
 	product[2].prixTTC   =  product->prixP + product->prixP * 15/100;  
 	product[2].quantiteP =  50;
 	 
+	productAcheter[0].codeP = product[0].codeP;
+	productAcheter[0].quantiteP = 2;
+	productAcheter[0].date =localtime( &rawtime );
 	
 	// topbar de l'application
 	topbar();
@@ -64,7 +72,7 @@ int main() {
 				case  1  :   product = addProduct(product);  break;
 				case  2  :   product = addProducts(product); break;
 				case  3  :   getAllProducts(product); break;
-				case  4  : break;
+				case  4  :   buyProduct( product, productAcheter ); break;
 				case  5  : while(1){
 							int choix;
 							do{	
