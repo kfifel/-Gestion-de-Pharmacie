@@ -68,10 +68,28 @@ int main() {
 			printf("\t\t\t0  Quiter\n\n");
 			input=getInt();
 			switch(input) {
-				case  0  :   exit(0); break;
-				case  1  :   product = addProduct(product);  break;
-				case  2  :   product = addProducts(product); break;
-				case  3  :   getAllProducts(product); break;
+				case  0  :  exit(0); break;
+				case  1  :  product = addProduct(product);  break;
+				case  2  :  product = addProducts(product); break;
+				case  3  :  
+							while(1){
+								int choix;
+								do{
+									topbar();
+									printf("\t\t\t\t----  lister tous les produits ---- \n\n\n");
+									printf("\t\t\t1  lister tous les produits selon l’ordre alphabétique  croissant du nom \n\n");
+									printf("\t\t\t2  lister tous les produits selon l’ordre  décroissant du prix.\n\n");
+									printf("\t\t\t0  Menu \n\n");
+									choix = getInt();
+								}while( choix > 2 || choix < 0);
+								
+								switch( choix ){
+									case 1 :  findProductByCode(product); break;
+									case 2 :  findProductByQte(product);break;
+									case 0 :  break;
+								}
+								if(!choix) break;
+							} 
 				case  4  :   buyProduct( product, productAcheter ); break;
 				case  5  : while(1){
 							int choix;
