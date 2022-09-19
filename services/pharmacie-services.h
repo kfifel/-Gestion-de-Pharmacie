@@ -1,4 +1,12 @@
-//    ------------------- Functions of  the projet -------------------    
+//    ------------------- Functions of  the projet ------------------- 
+   
+// fonction predefinie to use it in sort
+int compare(const void *x_void, const void *y_void)
+{
+  int x = *(int *)x_void;
+  int y = *(int *)y_void;
+  return y - x;
+}
    
 bool productIsExist(int code, Product *product, int lenc){
 	int i, exist = 0;
@@ -15,10 +23,10 @@ void getAllProducts( Product *product ){
 	printf("Liste All products : len: %d \n", len);
 	for( i = 0; i < len; i++) {
 		printTab();
-		printf("Name of product : %s |  Prix : %.3fDH | PrixTTC : %.3fDH \n", product[i].nomP, product[i].prixP, product[i].prixTTC);
+		printf("Name of product : %8s |  Prix : %.3fDH | PrixTTC : %.3fDH \n", product[i].nomP, product[i].prixP, product[i].prixTTC);
 	}
 	//free(productLocale);
-	sleep(2);
+	system("pause");
 	
 }
 
@@ -114,11 +122,11 @@ Product *addProducts( Product *product ){
 }
 
 void getAllProductsByNom( Product *product ){
-	
 }
 
 void getAllProductsByPrice( Product *product ){
-	
+  qsort( product, len, sizeof(Product), compare);
+  getAllProducts(product);
 }
 
 int getIndexOfProduct( Product *product, int code ){

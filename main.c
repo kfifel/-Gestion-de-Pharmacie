@@ -25,19 +25,19 @@ int main() {
 	product[0].codeP     =  1; 
 	strcpy(product[0].nomP , "Dolipran"); 
 	product[0].prixP     =  14.99;  
-	product[0].prixTTC   =  product->prixP + product->prixP * 15/100;  
+	product[0].prixTTC   =  product[0].prixP + product[0].prixP * 15/100;  
 	product[0].quantiteP =  50;
 	
 	product[1].codeP     =  2; 
 	strcpy(product[1].nomP, "Hydrocortizone"); 
 	product[1].prixP     =  39.45; 
-	product[1].prixTTC   =  product->prixP + product->prixP * 15/100;  
+	product[1].prixTTC   =  product[1].prixP + product[1].prixP * 15/100;  
 	product[1].quantiteP =  50;
 	
 	product[2].codeP     =  3; 
 	strcpy(product[2].nomP, "Exemple"); 
 	product[2].prixP     =  9.45; 
-	product[2].prixTTC   =  product->prixP + product->prixP * 15/100;  
+	product[2].prixTTC   =  product[2].prixP + product[2].prixP * 15/100;  
 	product[2].quantiteP =  50;
 	 
 	productAcheter[0].codeP = product[0].codeP;
@@ -91,7 +91,7 @@ int main() {
 							if(!choix) break;
 						} 
 							break;		
-				case  6  : break;
+				case  6  : getAllProductsByPrice(product); break;
 				case  7  : break;
 				case  8  : break;
 				case  9  : break;
