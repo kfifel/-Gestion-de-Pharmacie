@@ -121,8 +121,16 @@ void getAllProductsByPrice( Product *product ){
 	
 }
 
+int getIndexOfProduct( Product *product, int code ){
+	int i;
+	for( i = 0; i < len; i++){
+		if(product[i].codeP == code ) return i;
+	}
+ return -1;	
+}
+
 void buyProduct( Product *product, ProduitAcheter *productToBuy ) {
-	int n = lenBuy, codeP, i;
+	int n = lenBuy, codeP, indexP, i, qte;
 	bool exist;
 	productToBuy = realloc ( productToBuy , ++lenBuy * sizeof(ProduitAcheter));
 	printTab();
@@ -139,21 +147,30 @@ void buyProduct( Product *product, ProduitAcheter *productToBuy ) {
 	
 	printTab();
 	printf("Donner La Quantite Acheter :");
-	scanf("%d", &productToBuy[n].quantiteP );
+	scanf("%d", &qte );
 	
-	productToBuy[n].codeP = codeP;
+	indexP = getIndexOfProduct(product, codeP);
+	printf("index  = %d ", indexP);
 	
-	
-	
-	//definier le temps
-	time_t rawtime;
-    time( &rawtime );
-	productToBuy[n].date = localtime( &rawtime );
-	
-	
-	printTab();
-	printf("Bien Enregistrer .\n");
-	sleep(2);
+	if( product[indexP].quantiteP > qte){
+		product[indexP].quantiteP -= qte; // - la qte acheter
+		
+		productToBuy[n].quantiteP = qte;
+		productToBuy[n].codeP = codeP;
+		
+		//definier le temps
+		time_t rawtime;
+	    time( &rawtime );
+		productToBuy[n].date = localtime( &rawtime );
+		
+		printTab();
+		printf("Bien Enregistrer .\n");
+		sleep(2);
+	}else{		
+		printTab();
+		printf("Stock est insuffisant .!");
+		sleep(4);
+	}
 	
 }
 

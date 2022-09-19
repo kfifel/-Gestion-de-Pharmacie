@@ -6,6 +6,7 @@ Product * addProduct( Product *product );
 Product * addProducts( Product *product );
 void getAllProductsByNom( Product *product );
 void getAllProductsByPrice( Product *product );
+int getIndexOfProduct( Product *product, int code );
 void findProductByCode( Product *product );
 void findProductByQte( Product *product );
 void stockStatus( Product *product );
