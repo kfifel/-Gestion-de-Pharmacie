@@ -46,7 +46,6 @@ int main() {
 		again :
 		topbar();
 		printf("\t\t\t\t\tList Menu \n\n\n");
-		printf("%x", product);
 	// return pointur to case 0 du tableau
 		do {
 			printf("\t\t\t1  Ajouter un nouveau produit\n\n");
@@ -62,12 +61,28 @@ int main() {
 			input=getInt();
 			switch(input) {
 				case  0  :   exit(0); break;
-				case  1  :   product = addProducts(product);  
-							 printf("%x", product);break;
+				case  1  :   product = addProduct(product);  break;
 				case  2  :   product = addProducts(product); break;
 				case  3  :   getAllProducts(product); break;
 				case  4  : break;
-				case  5  : break;
+				case  5  : while(1){
+							int choix;
+							do{	
+								topbar();
+								printf("\t\t\t1  Rechercher Des Produits Par Code \n\n");
+								printf("\t\t\t2  Rechercher Des Produits Par Quantite\n\n");
+								printf("\t\t\t0  Menu \n\n");
+								choix = getInt();
+							}while( choix > 2 || choix < 0);
+							
+							switch( choix ){
+								case 1 :  findProductByCode(product); break;
+								case 2 :  findProductByQte(product);break;
+								case 0 :  break;
+							}
+							if(!choix) break;
+						} 
+							break;		
 				case  6  : break;
 				case  7  : break;
 				case  8  : break;
