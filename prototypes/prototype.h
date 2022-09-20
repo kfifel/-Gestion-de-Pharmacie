@@ -25,3 +25,4 @@ void nchar(char c, int n);
 void topbar();
 void menu(Product *product, int *len);
 int getInt();
+void production();
