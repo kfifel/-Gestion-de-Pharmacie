@@ -91,30 +91,30 @@ int main() {
 								if(!choix) break;
 							} 
 				case  4  :   buyProduct( product, productAcheter ); break;
-				case  5  : while(1){
-							int choix;
-							do{	
-								topbar();
-								printf("\t\t\t1  Rechercher Des Produits Par Code \n\n");
-								printf("\t\t\t2  Rechercher Des Produits Par Quantite\n\n");
-								printf("\t\t\t0  Menu \n\n");
-								choix = getInt();
-							}while( choix > 2 || choix < 0);
-							
-							switch( choix ){
-								case 1 :  findProductByCode(product); break;
-								case 2 :  findProductByQte(product);break;
-								case 0 :  break;
-							}
-							if(!choix) break;
-						} 
+				case  5  : 	while(1){
+								int choix;
+								do{	
+									topbar();
+									printf("\t\t\t1  Rechercher Des Produits Par Code \n\n");
+									printf("\t\t\t2  Rechercher Des Produits Par Quantite\n\n");
+									printf("\t\t\t0  Menu \n\n");
+									choix = getInt();
+								}while( choix > 2 || choix < 0);
+								
+								switch( choix ){
+									case 1 :  findProductByCode(product); break;
+									case 2 :  findProductByQte(product);break;
+									case 0 :  break;
+								}
+								if(!choix) break;
+							} 
 							break;		
-				case  6  : getAllProductsByPrice(product); break;
-				case  7  : break;
-				case  8  : break;
-				case  9  : break;
-				case  10 : break; 
-				default  : goto again;
+				case  6  :  stockStatus(product); break;
+				case  7  :  supplyStock(product); break;
+				case  8  :  break;
+				case  9  :  break;
+				case  10 :  break; 
+				default  :  goto again;
 			}
 			
 		}while(input > 10 || input < 0);

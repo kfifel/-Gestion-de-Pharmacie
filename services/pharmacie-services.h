@@ -224,23 +224,93 @@ void findProductByQte( Product *product ){
 }
 
 void stockStatus( Product *product ){
-	//afficher les produit dans la qte et < 3
+	 //afficher les produit dans la qte et < 3
+	 int i, exist=0;
+	
+   	 topbar();
+	 printTab();
+	 printf(" ---  les produits dont la quantite est inferieure a 3  ---\n\n\n\n");
+	 for(i = 0; i < len; i++ ) {
+	 	if( product[i].quantiteP < 3){
+	 		
+	 		printTab();
+	 		printf("Name of product : %s | Prix : %.3fDH | PrixTTC : %.3fDH "
+				   "\n", product[i].nomP, product[i].prixP, product[i].prixTTC);
+				   exist++;
+		 }
+	 }
+	 if(!exist) {
+	 	printTab();
+	 	printf("Aucun Produits a une quantite inferieur a 3\n\n");
+	 }
+	 printTab();
+	 system("pause");
+	 
 }
 
-void supplyStock( Product *product, int code, int qte){
+void supplyStock( Product *product){
 	//permet de mettre à jour la quantité après avoir introduit le code produit et la quantité à ajouter
+	int i, qte, codeP, exist, indexP;
+	topbar();
+	printTab();
+	printf("--- mettre à jour le Stock ---\n\n\n");
+	printTab();
+	printf("    Choisir Le Code De Product Concernant: \n");
+	for( i = 0; i < len; i++) {
+		printTab();
+		printf("Code De Produit : %d |  Name Of Product : %s |  Quantite : %d | PrixTTC : %.3fDH \n", product[i].codeP, product[i].nomP, product[i].quantiteP, product[i].prixTTC);
+	}
+	
+	do{
+		codeP = getInt();
+		exist = productIsExist(codeP, product, len ); //tester si le code de produit saisir est dans la list;
+		if( !exist ) printf("Produit n'est pas dans la list");
+	}while( !exist );
+	
+	printTab();
+	printf("Donner La Quantite A Ajouter :");
+	scanf("%d", &qte );
+	
+	indexP = getIndexOfProduct(product, codeP);//get index de  Produit selectionnee
+	
+	product[indexP].quantiteP += qte;
+	printTab();
+	printf("Bien mettre à jouree ");
+	sleep(3);
 }
 
 void deleteProductByCode( Product *product, int code ) {
 	// delete product by 
 }
 
-void productStatistics( Product *product, int n ){
+float getPrixTTCProductVendu(Product *product ,int code){
+	int i;
+	for( i = 0; i < len; i++) {
+		if(product[i].codeP == code ) return product[i].prixTTC;
+	}
+	
+	return 0;
+}
+
+void productStatistics( Product *product, ProduitAcheter *productVendu ){
 // Afficher le total des prix des produits vendus en journée courante
 // Afficher la moyenne des prix des produits vendus en journée courante
 // Afficher le Max des prix des produits vendus en journée courante
 // Afficher le Min des prix des produits vendus en journée courante
-
-	float totalPrix, moyennePrix, maxPrix, minPrix;
+	time_t t;
+	time(&t);
+	struct tm *timecurrent = localtime( &t );
+	float totalPrixDay=0, moyennePrixDay, maxVenduDay, minVenduDay;
+	int i;
+	maxVenduDay = O;
+	minVenduDay = 100;
+	for( i = 0; i < lenBuy; i++ ) {
+		if( productVendu[i].date.tm_mday == timecurrent.tm_mday && productVendu[i].date.tm_mon == timecurrent.tm_mon && productVendu[i].date.tm_year == timecurrent.tm_year ){
+			totalPrixDay += void getPrixTTCProductVendu( product, productVendu[i].codeP ); // get prix TTC
+			if(maxVenduDay < productVendu[i].)
+	
+		}
+	}
+	
 	
 }

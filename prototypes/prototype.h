@@ -10,9 +10,10 @@ int getIndexOfProduct( Product *product, int code );
 void findProductByCode( Product *product );
 void findProductByQte( Product *product );
 void stockStatus( Product *product );
-void supplyStock( Product *product, int code, int qte);
+void supplyStock( Product *product );
 void deleteProductByCode( Product *product, int code );
-void productStatistics( Product *product, int n );
+float getPrixTTCProductVendu(Product *product ,int code);
+void productStatistics( ProduitAcheter *product );
 
 //fonction de l'affichage
 void printTab();
