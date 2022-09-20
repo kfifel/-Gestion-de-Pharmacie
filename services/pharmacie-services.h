@@ -142,6 +142,22 @@ Product *addProducts( Product *product ){
 }
 
 void getAllProductsByNom( Product *product ){
+	int i , j ;
+  Product temprd[1];
+  for (i = 0 ; i< len-1 ; i++)
+    {
+        for(j=i+1 ; j<len ;j++)
+        {
+            if(strcmp( product[i].nomP, product[j].nomP) > 0)
+            {
+                temprd[0]=product[i] ;
+                product[i]=product[j];
+                product[j] = temprd[0];
+            }
+        }
+    }
+    topbar();
+    getAllProducts(product);
 }
 
 void getAllProductsByPrice( Product *product ){
