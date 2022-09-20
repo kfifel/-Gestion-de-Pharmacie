@@ -345,7 +345,7 @@ void historyProductVendu( Product *product, ProduitAcheter *productVendu ){
 		productFound = findProduct( product, productVendu[i].codeP );
 		printTab();
 		printf("Nom de Produit : %s  |  Quantite : %d  ", productFound.nomP, productVendu[i].quantiteP );
-		printf("|  PrixTTC : %.3f  |  Date : %d:%d:%d  %d/%d/%d\n", productVendu[i].prixTTC, productVendu[i].date->tm_hour, productVendu[i].date->tm_min, productVendu[i].date->tm_sec, productVendu[i].date->tm_yday, productVendu[i].date->tm_mon, productVendu[i].date->tm_year  );
+		printf("|  PrixTTC : %.3f  |  Date : %d:%d:%d  %d/%d/%d\n", productVendu[i].prixTTC, productVendu[i].date->tm_hour, productVendu[i].date->tm_min, productVendu[i].date->tm_sec, productVendu[i].date->tm_mday, productVendu[i].date->tm_mon + 1, productVendu[i].date->tm_year + 1900  );
 	}
 	
 	system("pause");
