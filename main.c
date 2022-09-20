@@ -4,13 +4,14 @@
 #include <string.h>
 #include <stdbool.h>
 	// la taille de tbleau principale
-	int len=3, lenBuy = 1;
+	int len=3, lenBuy = 3;
 #include "structers/structers.h"
 #include "prototypes/prototype.h"
 #include "services/pharmacie-services.h"
 #include "services/pharmacie-print-functions.h"
 
 int main() {
+	production();
 	//time
 	time_t rawtime;
     time( &rawtime );
@@ -38,13 +39,22 @@ int main() {
 	strcpy(product[2].nomP, "Exemple"); 
 	product[2].prixP     =  11.45; 
 	product[2].prixTTC   =  product[2].prixP + product[2].prixP * 15/100;  
-	product[2].quantiteP =  50;
+	product[2].quantiteP =  49;
 	 
 	productAcheter[0].codeP = product[0].codeP;
 	productAcheter[0].prixTTC = product[0].prixTTC;
-	productAcheter[0].quantiteP = 2;
+	productAcheter[0].quantiteP = 3;
 	productAcheter[0].date =localtime( &rawtime );
 	
+	productAcheter[1].codeP = product[1].codeP;
+	productAcheter[1].prixTTC = product[1].prixTTC;
+	productAcheter[1].quantiteP = 2;
+	productAcheter[1].date =localtime( &rawtime );
+	
+	productAcheter[2].codeP = product[2].codeP;
+	productAcheter[2].prixTTC = product[2].prixTTC;
+	productAcheter[2].quantiteP = 1;
+	productAcheter[2].date =localtime( &rawtime );
 	// topbar de l'application
 	topbar();
 	
@@ -79,14 +89,14 @@ int main() {
 								do{
 									topbar();
 									printTab();printf("\t----  lister tous les produits ---- \n\n\n");
-									printTab();printf("1  lister tous les produits selon l’ordre alphabétique  croissant du nom \n\n");
-									printTab();printf("2  lister tous les produits selon l’ordre  décroissant du prix.\n\n");
+									printTab();printf("1  lister tous les produits selon l'ordre alphabetique  croissant du nom \n\n");
+									printTab();printf("2  lister tous les produits selon l'ordre  decroissant du prix.\n\n");
 									printTab();printf("0  Menu \n\n");
 									choix = getInt();
 								}while( choix > 2 || choix < 0);
 								
 								switch( choix ){
-									case 1 :  getAllProducts(product); break;
+									case 1 :  getAllProductsByNom( product ); break;
 									case 2 :  getAllProducts(product);break;
 									case 0 :  break;
 								}
@@ -124,8 +134,7 @@ int main() {
 								topbar();
 								system("color 4");
 								printTab();
-								printTab();
-								printf("404 not found \n");
+								printf("         404 not found \n");
 							}
 							sleep(3);
 							goto again;
