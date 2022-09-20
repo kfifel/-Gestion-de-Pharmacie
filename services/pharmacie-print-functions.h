@@ -5,7 +5,7 @@ void nchar(char c, int n){
 }
 
 void printTab(){
-	printf("\t\t\t");
+	printf("\t\t\t\t\t\t");
 }
 
 int getInt(){
@@ -16,15 +16,18 @@ return n;
 }
 
 void topbar(){
+	
+	system("color 7");
 	system("cls");
-	printf("\t\t\t");
+	printf("\n\n");
+	printTab();
 	
 	nchar('-', 18);
 	printf("Projet Fin SAS (2022/2023)");
 	nchar('-', 18);
 	
 	printf("\n");
-	printf("\t\t\t");
+	printTab();
 	nchar('-', 21);
 	printf("Gestion de Pharmacie");
 	nchar('-', 21);

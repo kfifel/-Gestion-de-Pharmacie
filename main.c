@@ -36,7 +36,7 @@ int main() {
 	
 	product[2].codeP     =  3; 
 	strcpy(product[2].nomP, "Exemple"); 
-	product[2].prixP     =  9.45; 
+	product[2].prixP     =  11.45; 
 	product[2].prixTTC   =  product[2].prixP + product[2].prixP * 15/100;  
 	product[2].quantiteP =  50;
 	 
@@ -54,21 +54,20 @@ int main() {
 	while(1){
 		again :
 		topbar();
-		printf("\t\t\t\t\tList Menu \n\n\n");
-	// return pointur to case 0 du tableau
+		printTab();printf("\t\tList Menu \n\n\n");
 		do {
-			printf("\t\t\t1  Ajouter un nouveau produit\n\n");
-			printf("\t\t\t2  Ajouter plusieurs nouveaux produits\n\n");
-			printf("\t\t\t3  Lister tous les produits\n\n");
-			printf("\t\t\t4  Acheter produit\n\n");
-			printf("\t\t\t5  Rechercher les produits\n\n");
-			printf("\t\t\t6  Etat du stock\n\n");
-			printf("\t\t\t7  Alimenter le stock\n\n");
-			printf("\t\t\t8  Supprimer les produits par\n\n");
-			printf("\t\t\t9  Statistique de vente\n\n\n");
-			printf("\t\t\t10 Historique des ventes\n\n\n");
-			printf("\t\t\t11 afficher les ventes\n\n\n");
-			printf("\t\t\t0  Quiter\n\n");
+			printTab();printf("1  Ajouter un nouveau produit\n\n");
+			printTab();printf("2  Ajouter plusieurs nouveaux produits\n\n");
+			printTab();printf("3  Lister tous les produits\n\n");
+			printTab();printf("4  Acheter produit\n\n");
+			printTab();printf("5  Rechercher les produits\n\n");
+			printTab();printf("6  Etat du stock\n\n");
+			printTab();printf("7  Alimenter le stock\n\n");
+			printTab();printf("8  Supprimer les produits par\n\n");
+			printTab();printf("9  Statistique de vente\n\n\n");
+			printTab();printf("10 Historique des ventes\n\n\n");
+			printTab();printf("11 afficher les ventes\n\n\n");
+			printTab();printf("0  Quiter\n\n");
 			input=getInt();
 			switch(input) {
 				case  0  :  exit(0); break;
@@ -79,10 +78,10 @@ int main() {
 								int choix;
 								do{
 									topbar();
-									printf("\t\t\t\t----  lister tous les produits ---- \n\n\n");
-									printf("\t\t\t1  lister tous les produits selon l’ordre alphabétique  croissant du nom \n\n");
-									printf("\t\t\t2  lister tous les produits selon l’ordre  décroissant du prix.\n\n");
-									printf("\t\t\t0  Menu \n\n");
+									printTab();printf("\t----  lister tous les produits ---- \n\n\n");
+									printTab();printf("1  lister tous les produits selon l’ordre alphabétique  croissant du nom \n\n");
+									printTab();printf("2  lister tous les produits selon l’ordre  décroissant du prix.\n\n");
+									printTab();printf("0  Menu \n\n");
 									choix = getInt();
 								}while( choix > 2 || choix < 0);
 								
@@ -99,9 +98,9 @@ int main() {
 								int choix;
 								do{	
 									topbar();
-									printf("\t\t\t1  Rechercher Des Produits Par Code \n\n");
-									printf("\t\t\t2  Rechercher Des Produits Par Quantite\n\n");
-									printf("\t\t\t0  Menu \n\n");
+									printTab();printf("1  Rechercher Des Produits Par Code \n\n");
+									printTab();printf("2  Rechercher Des Produits Par Quantite\n\n");
+									printTab();printf("0  Menu \n\n");
 									choix = getInt();
 								}while( choix > 2 || choix < 0);
 								
@@ -122,8 +121,13 @@ int main() {
 				case  11 :  getAllProductsVendu( productAcheter ); break; 
 				default  :  
 							{
-								// function Error();	
+								topbar();
+								system("color 4");
+								printTab();
+								printTab();
+								printf("404 not found \n");
 							}
+							sleep(3);
 							goto again;
 			}
 			

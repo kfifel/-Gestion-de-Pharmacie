@@ -18,12 +18,18 @@ bool productIsExist(int code, Product *product, int lenc){
 
 void getAllProducts( Product *product ){
 	
-	int i;
+	int i, j;
 	printTab();
-	printf("Liste All products : len: %d \n", len);
+	printf("\t-------------------- Liste All products : len: %d --------------------", len);
+	printf("\n\n\n");
 	for( i = 0; i < len; i++) {
 		printTab();
-		printf("Name of product : %8s |  Prix : %.3fDH | PrixTTC : %.3fDH \n", product[i].nomP, product[i].prixP, product[i].prixTTC);
+		printf("|   Name of product : %s", product[i].nomP);
+		for( j = 0; j < 16 - strlen(product[i].nomP); j++ ) printf(" ");
+		printf("|   Prix : %.3fDH   |   PrixTTC : %.3fDH   |\n", product[i].prixP, product[i].prixTTC);
+		printTab();
+		nchar('-', 86);
+		printf("\n");
 	}
 	//free(productLocale);
 	system("pause");
@@ -41,7 +47,6 @@ void getAllProductsVendu( ProduitAcheter *product ){
 		printf("| Qte : %d \n", product[i].quantiteP);
 	}
 	system("pause");
-	
 }
 
 		               
@@ -152,7 +157,7 @@ int getIndexOfProduct( Product *product, int code ){
  return -1;	
 }
 
-void buyProduct( Product *product, ProduitAcheter *productToBuy ) {
+ProduitAcheter * buyProduct( Product *product, ProduitAcheter *productToBuy ) {
 	int n = lenBuy, codeP, indexP, i, qte;
 	bool exist;
 	productToBuy = realloc ( productToBuy , ++lenBuy * sizeof(ProduitAcheter));
@@ -181,7 +186,7 @@ void buyProduct( Product *product, ProduitAcheter *productToBuy ) {
 		product[indexP].quantiteP -= qte; // - la qte acheter
 		
 		productToBuy[n].quantiteP = qte;
-		productToBuy[n].codeP = codeP;
+		productToBuy[n].codeP = product[indexP].codeP;
 		productToBuy[n].prixTTC = product[indexP].prixTTC;
 		
 		//definier le temps
@@ -191,13 +196,13 @@ void buyProduct( Product *product, ProduitAcheter *productToBuy ) {
 		
 		printTab();
 		printf("Bien Enregistrer .\n");
-		sleep(2);
+		sleep(3);
 	}else{		
 		printTab();
 		printf("Stock est insuffisant .!");
 		sleep(4);
 	}
-	
+return productToBuy;	
 }
 
 void findProductByCode( Product *product){
@@ -353,8 +358,8 @@ void productStatistics( Product *product, ProduitAcheter *productVendu ){
 	struct tm *timecurrent = localtime( &t );
 	float totalPrixDay=0, moyennePrixDay, maxVenduDay, minVenduDay, prixTTC;
 	int i, count;
-	maxVenduDay = 0;
-	minVenduDay = 100;
+	maxVenduDay = productVendu[0].prixTTC;
+	minVenduDay = productVendu[0].prixTTC;
 	for( i = 0; i < lenBuy; i++ ) {
 		if( productVendu[i].date->tm_mday == timecurrent->tm_mday && productVendu[i].date->tm_mon == timecurrent->tm_mon && productVendu[i].date->tm_year == timecurrent->tm_year ){
 			prixTTC = getPrixTTCProductVendu( product, productVendu[i].codeP ); // get prix TTC
@@ -370,7 +375,7 @@ void productStatistics( Product *product, ProduitAcheter *productVendu ){
 	}
 	moyennePrixDay = totalPrixDay / count;
 	printTab();
-	printf("Min : %.3f; Max : %3.f \n", minVenduDay, maxVenduDay);
+	printf("Min : %.3f; Max : %3.f ", minVenduDay, maxVenduDay);
 	printf("Total Prix : %.3f; Moyenne Prix : %.3f \n", totalPrixDay, moyennePrixDay );
 	system("pause");
 }
@@ -392,9 +397,15 @@ void historyProductVendu( Product *product, ProduitAcheter *productVendu ){
 	topbar();
 	int i;
 	Product productFound;
+	printTab();
+	printf("\t");
+	nchar('-', 20);
+	printf("Historiques des Ventes d'Aujoud'huit ");
+	nchar('-', 20);
+	printf("\n\n\n");
 	for( i = 0; i < lenBuy ; i++ ){
 		productFound = findProduct( product, productVendu[i].codeP );
-		
+		printTab();
 		printf("Nom de Produit : %s  |  Quantite : %d  ", productFound.nomP, productVendu[i].quantiteP );
 		printf("|  PrixTTC : %.3f  |  Date : %d:%d:%d  %d/%d/%d\n", productVendu[i].prixTTC, productVendu[i].date->tm_hour, productVendu[i].date->tm_min, productVendu[i].date->tm_sec, productVendu[i].date->tm_mday, productVendu[i].date->tm_mon + 1, productVendu[i].date->tm_year + 1900  );
 	}
