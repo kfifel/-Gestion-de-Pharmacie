@@ -13,7 +13,9 @@ void stockStatus( Product *product );
 void supplyStock( Product *product );
 void deleteProductByCode( Product *product, int code );
 float getPrixTTCProductVendu(Product *product ,int code);
-void productStatistics( ProduitAcheter *product );
+void productStatistics( Product *product, ProduitAcheter *productVendu );
+void historyProductVendu( Product *product, ProduitAcheter *productVendu );
+Product findProduct( Product *product, int codeP );
 
 //fonction de l'affichage
 void printTab();

@@ -26,7 +26,7 @@ int main() {
 	strcpy(product[0].nomP , "Dolipran"); 
 	product[0].prixP     =  14.99;  
 	product[0].prixTTC   =  product[0].prixP + product[0].prixP * 15/100;  
-	product[0].quantiteP =  50;
+	product[0].quantiteP =  48;
 	
 	product[1].codeP     =  2; 
 	strcpy(product[1].nomP, "Hydrocortizone"); 
@@ -41,6 +41,7 @@ int main() {
 	product[2].quantiteP =  50;
 	 
 	productAcheter[0].codeP = product[0].codeP;
+	productAcheter[0].prixTTC = product[0].prixTTC;
 	productAcheter[0].quantiteP = 2;
 	productAcheter[0].date =localtime( &rawtime );
 	
@@ -65,6 +66,7 @@ int main() {
 			printf("\t\t\t7  Alimenter le stock\n\n");
 			printf("\t\t\t8  Supprimer les produits par\n\n");
 			printf("\t\t\t9  Statistique de vente\n\n\n");
+			printf("\t\t\t10 Historique des ventes\n\n\n");
 			printf("\t\t\t0  Quiter\n\n");
 			input=getInt();
 			switch(input) {
@@ -84,12 +86,13 @@ int main() {
 								}while( choix > 2 || choix < 0);
 								
 								switch( choix ){
-									case 1 :  findProductByCode(product); break;
-									case 2 :  findProductByQte(product);break;
+									case 1 :  getAllProducts(product); break;
+									case 2 :  getAllProducts(product);break;
 									case 0 :  break;
 								}
 								if(!choix) break;
 							} 
+							break;
 				case  4  :   buyProduct( product, productAcheter ); break;
 				case  5  : 	while(1){
 								int choix;
@@ -108,13 +111,17 @@ int main() {
 								}
 								if(!choix) break;
 							} 
-							break;		
+							break;	
 				case  6  :  stockStatus(product); break;
 				case  7  :  supplyStock(product); break;
 				case  8  :  break;
-				case  9  :  break;
-				case  10 :  break; 
-				default  :  goto again;
+				case  9  :  productStatistics( product, productAcheter ); break;
+				case  10 :  historyProductVendu( product, productAcheter ); break; 
+				default  :  
+							{
+								// function Error();	
+							}
+							goto again;
 			}
 			
 		}while(input > 10 || input < 0);

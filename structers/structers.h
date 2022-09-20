@@ -8,6 +8,7 @@ typedef struct Product{
 
 typedef struct ProduitAcheter {
 	int codeP;
+	float prixTTC;
 	int quantiteP;
     struct tm *date;
 }ProduitAcheter;

@@ -165,6 +165,7 @@ void buyProduct( Product *product, ProduitAcheter *productToBuy ) {
 		
 		productToBuy[n].quantiteP = qte;
 		productToBuy[n].codeP = codeP;
+		productToBuy[n].prixTTC = product[indexP].prixTTC;
 		
 		//definier le temps
 		time_t rawtime;
@@ -300,17 +301,52 @@ void productStatistics( Product *product, ProduitAcheter *productVendu ){
 	time_t t;
 	time(&t);
 	struct tm *timecurrent = localtime( &t );
-	float totalPrixDay=0, moyennePrixDay, maxVenduDay, minVenduDay;
-	int i;
-	maxVenduDay = O;
+	float totalPrixDay=0, moyennePrixDay, maxVenduDay, minVenduDay, prixTTC;
+	int i, count;
+	maxVenduDay = 0;
 	minVenduDay = 100;
 	for( i = 0; i < lenBuy; i++ ) {
-		if( productVendu[i].date.tm_mday == timecurrent.tm_mday && productVendu[i].date.tm_mon == timecurrent.tm_mon && productVendu[i].date.tm_year == timecurrent.tm_year ){
-			totalPrixDay += void getPrixTTCProductVendu( product, productVendu[i].codeP ); // get prix TTC
-			if(maxVenduDay < productVendu[i].)
-	
+		if( productVendu[i].date->tm_mday == timecurrent->tm_mday && productVendu[i].date->tm_mon == timecurrent->tm_mon && productVendu[i].date->tm_year == timecurrent->tm_year ){
+			prixTTC = getPrixTTCProductVendu( product, productVendu[i].codeP ); // get prix TTC
+			totalPrixDay += prixTTC * productVendu[i].quantiteP; 
+			if( maxVenduDay < productVendu[i].prixTTC ){
+				maxVenduDay = productVendu[i].prixTTC;
+			}
+			if( maxVenduDay > productVendu[i].prixTTC ){
+				minVenduDay = productVendu[i].prixTTC;
+			}
+			count++;
 		}
 	}
+	moyennePrixDay = totalPrixDay / count;
+	printTab();
+	printf("Min : %.3f; Max : %3.f \n", minVenduDay, maxVenduDay);
+	printf("Total Prix : %.3f; Moyenne Prix : %.3f \n", totalPrixDay, moyennePrixDay );
+	system("pause");
+}
+
+Product findProduct( Product *product, int codeP ){
+	Product productFound;
+	int index, i;
+    index = getIndexOfProduct( product,  codeP );
+    for( i = 0; i < len; i++){
+    	if( product[i].codeP == codeP ){
+    		productFound = product[i];
+    		break;
+		}
+	}
+return 	productFound;
+}
+
+void historyProductVendu( Product *product, ProduitAcheter *productVendu ){
+	int i;
+	Product productFound;
+	for( i = 0; i < lenBuy ; i++ ){
+		productFound = findProduct( product, productVendu[i].codeP );
+		printTab();
+		printf("Nom de Produit : %s  |  Quantite : %d  ", productFound.nomP, productVendu[i].quantiteP );
+		printf("|  PrixTTC : %.3f  |  Date : %d:%d:%d  %d/%d/%d\n", productVendu[i].prixTTC, productVendu[i].date->tm_hour, productVendu[i].date->tm_min, productVendu[i].date->tm_sec, productVendu[i].date->tm_yday, productVendu[i].date->tm_mon, productVendu[i].date->tm_year  );
+	}
 	
-	
+	system("pause");
 }
