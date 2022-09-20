@@ -30,6 +30,20 @@ void getAllProducts( Product *product ){
 	
 }
 
+void getAllProductsVendu( ProduitAcheter *product ){
+	int i;
+	printTab();
+	printf("Liste All products Vendus : len: %d \n", lenBuy );
+	for( i = 0; i < lenBuy; i++) {
+		printTab();
+		printf("code de Produit : %d ", product[i].codeP);
+		printf("|  Prix : %.3fDH ", product[i].prixTTC);
+		printf("| Qte : %d \n", product[i].quantiteP);
+	}
+	system("pause");
+	
+}
+
 		               
 Product *addProduct( Product *product ){
 	bool exist;
@@ -38,12 +52,14 @@ Product *addProduct( Product *product ){
 	
 	len = len + 1;    
 	product = realloc ( product, len * sizeof( *product ) );
+	
+		topbar();
 		printTab();
-		printf("---  les Donner de Produit --- \n");
+		printf("        ---  les Donner de Produit --- \n\n\n");
 	
 	do{
 		printTab();
-		printf("Saisez le Code de produit  ");
+		printf(" Saisez le Code de produit  ");
 		scanf("%d", &product[len - 1].codeP);
 		exist = productIsExist( product[len - 1].codeP, product, len - 1 ); // 0 1 2  len 3 
 		printTab();
@@ -51,22 +67,22 @@ Product *addProduct( Product *product ){
 		
 	}while( exist );
 	
-	printf("Saisez le Nom de produit : ");
+	printf("  Saisez le Nom de produit : ");
 	scanf("%s", nom);
 	strcpy(product[len - 1].nomP ,nom);
 	
 	printTab();
-	printf("Saisez la Quantite de produit : ");
+	printf("  Saisez la Quantite de produit : ");
 	scanf("%d", &product[len - 1].quantiteP);
 	
 	printTab();
-	printf("Saisez le Prix de produit  : ");
+	printf("  Saisez le Prix de produit  : ");
 	scanf("%f", &product[len - 1].prixP);
 	
 	product[len - 1].prixTTC = product[len - 1].prixP + product[len - 1].prixP * 15 / 100;
 	
 	printTab();
-	printf("Product n is saved with success\n");
+	printf("  produit est ajouter avec succes\n");
 	sleep(2);
 	return product;
 }
@@ -76,24 +92,23 @@ Product *addProducts( Product *product ){
 	int N, pos = 0, i;
 	char nom[50];
 	
+	topbar();
 	printTab();
 	printf("Donner le nombre des produits que vous voullez ajoutez : ");
 	scanf("%d", &N);
 	
 	len = len + N;    
 	product = realloc ( product, len * sizeof( *product ) );
-	printf("%x", product);
 	for( i = len - N ; i  < len; i++ ){
 		pos++;
+		printf("\n\n");
 			printTab();
-			printf("---  les Donner de Produit N : %d --- \n", pos);
+			printf("      ---  les Donner de Produit N : %d --- \n", pos);
 		
 		do{
 			printTab();
 			printf("Saisez le Code de produit %d:  ", pos);
 			scanf("%d", &product[i].codeP);
-			printf("%d", product[i].codeP);
-			system("pause");
 			exist = productIsExist( product[i].codeP, product, len - N + pos - 1 ); // 0 1 2  len 3 
 			
 			printTab();
@@ -101,22 +116,22 @@ Product *addProducts( Product *product ){
 			
 		}while( exist );
 		
-		printf("Saisez le Nom de produit %d : ", pos);
+		printf("   Saisez le Nom de produit %d : ", pos);
 		scanf("%s", nom);
 		strcpy(product[i].nomP ,nom);
 		
 		printTab();
-		printf("Saisez la Quantite de produit %d : ", pos);
+		printf("   Saisez la Quantite de produit %d : ", pos);
 		scanf("%d", &product[i].quantiteP);
 		
 		printTab();
-		printf("Saisez le Prix de produit %d : ", pos);
+		printf("   Saisez le Prix de produit %d : ", pos);
 		scanf("%f", &product[i].prixP);
 		
 		product[i].prixTTC = product[i].prixP + product[i].prixP * 15 / 100;
 		
 		printTab();
-		printf("Product n %d is saved with success\n", pos);
+		printf("Produit %d est ajouter avec succes\n", pos);
 	}
 	return product;
 }
@@ -141,6 +156,8 @@ void buyProduct( Product *product, ProduitAcheter *productToBuy ) {
 	int n = lenBuy, codeP, indexP, i, qte;
 	bool exist;
 	productToBuy = realloc ( productToBuy , ++lenBuy * sizeof(ProduitAcheter));
+	
+	topbar();
 	printTab();
 	printf("Choisi Le Code De Product Que Vous Acheter: \n");
 	for( i = 0; i < len; i++) {
@@ -279,9 +296,40 @@ void supplyStock( Product *product){
 	printf("Bien mettre à jouree ");
 	sleep(3);
 }
+void deleteP(Product *product){
+	int i, codeP, index;
+	bool exist;
+	char res;
+	topbar();
+	printTab();
+	printf("Choisi Le Code De Product Que Vous Acheter: \n\n");
+	for( i = 0; i < len; i++) {
+		printTab();
+		printf("Code De Produit : %d |  Name Of Product : %s |  Prix : %.3fDH | PrixTTC : %.3fDH \n", product[i].codeP, product[i].nomP, product[i].prixP, product[i].prixTTC);
+	}
+	do{
+		codeP = getInt();
+		exist = productIsExist(codeP, product, len );
+		if( !exist ) printf("Produit n'est pas dans la list");
+	}while( !exist );
+	index = getIndexOfProduct( product,  codeP );
+	
+	printTab();
+	printf("Vous voullez vraiment supprimer ce preduit Y/N : ");
+	fflush(stdin);scanf("%c", &res);
+	if( res == 'Y' || res == 'y' ) deleteProductByCode(product, index);
+}
 
-void deleteProductByCode( Product *product, int code ) {
-	// delete product by 
+void deleteProductByCode( Product *product, int index ) {
+	// delete product by codeP
+	int i;
+	len--;
+	for ( i = index ; i < len; i++) {
+		product[i] = product[i+1];
+	}
+	printTab();
+	printf("Produit supprimé avec succès");
+	sleep(3);
 }
 
 float getPrixTTCProductVendu(Product *product ,int code){
@@ -298,6 +346,8 @@ void productStatistics( Product *product, ProduitAcheter *productVendu ){
 // Afficher la moyenne des prix des produits vendus en journée courante
 // Afficher le Max des prix des produits vendus en journée courante
 // Afficher le Min des prix des produits vendus en journée courante
+
+	topbar();
 	time_t t;
 	time(&t);
 	struct tm *timecurrent = localtime( &t );
@@ -339,11 +389,12 @@ return 	productFound;
 }
 
 void historyProductVendu( Product *product, ProduitAcheter *productVendu ){
+	topbar();
 	int i;
 	Product productFound;
 	for( i = 0; i < lenBuy ; i++ ){
 		productFound = findProduct( product, productVendu[i].codeP );
-		printTab();
+		
 		printf("Nom de Produit : %s  |  Quantite : %d  ", productFound.nomP, productVendu[i].quantiteP );
 		printf("|  PrixTTC : %.3f  |  Date : %d:%d:%d  %d/%d/%d\n", productVendu[i].prixTTC, productVendu[i].date->tm_hour, productVendu[i].date->tm_min, productVendu[i].date->tm_sec, productVendu[i].date->tm_mday, productVendu[i].date->tm_mon + 1, productVendu[i].date->tm_year + 1900  );
 	}

@@ -67,6 +67,7 @@ int main() {
 			printf("\t\t\t8  Supprimer les produits par\n\n");
 			printf("\t\t\t9  Statistique de vente\n\n\n");
 			printf("\t\t\t10 Historique des ventes\n\n\n");
+			printf("\t\t\t11 afficher les ventes\n\n\n");
 			printf("\t\t\t0  Quiter\n\n");
 			input=getInt();
 			switch(input) {
@@ -114,9 +115,11 @@ int main() {
 							break;	
 				case  6  :  stockStatus(product); break;
 				case  7  :  supplyStock(product); break;
-				case  8  :  break;
+				case  8  :  deleteP(product);
+							break;
 				case  9  :  productStatistics( product, productAcheter ); break;
 				case  10 :  historyProductVendu( product, productAcheter ); break; 
+				case  11 :  getAllProductsVendu( productAcheter ); break; 
 				default  :  
 							{
 								// function Error();	
