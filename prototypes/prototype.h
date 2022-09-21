@@ -5,6 +5,7 @@ void getAllProducts( Product *product );
 void getAllProductsVendu( ProduitAcheter *product );
 Product * addProduct( Product *product );
 Product * addProducts( Product *product );
+ProduitAcheter *buyProduct( Product *product, ProduitAcheter *productToBuy ) ;
 void getAllProductsByNom( Product *product );
 void getAllProductsByPrice( Product *product );
 int getIndexOfProduct( Product *product, int code );

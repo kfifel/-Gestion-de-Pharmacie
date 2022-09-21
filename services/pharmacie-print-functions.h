@@ -72,5 +72,21 @@ void production(){
 		
 		sleep(5);
 		}
+		
+void error404(){
+	topbar();
+	system("color 4");
+	printf("\n\n\n\n\n\n\n");
+printTab();	printf("  ______                                  _  _      ___    _  _   \n");
+printTab();	printf(" |  ____|                                | || |    / _ \\  | || |  \n");
+printTab();	printf(" | |__     _ __   _ __    ___    _ __    | || |_  | | | | | || |_ \n");
+printTab();	printf(" |  __|   | '__| | '__|  / _ \\  | '__|   |__   _| | | | | |__   _|\n");
+printTab();	printf(" | |____  | |    | |    | (_) | | |         | |   | |_| |    | |  \n");
+printTab();	printf(" |______| |_|    |_|     \\___/  |_|         |_|    \\___/     |_|  \n");
+	
+	sleep(5);
+	
+	
+}
 
 

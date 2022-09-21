@@ -38,6 +38,7 @@ void getAllProducts( Product *product ){
 
 void getAllProductsVendu( ProduitAcheter *product ){
 	int i;
+	topbar();
 	printTab();
 	printf("Liste All products Vendus : len: %d \n", lenBuy );
 	for( i = 0; i < lenBuy; i++) {
@@ -173,8 +174,8 @@ int getIndexOfProduct( Product *product, int code ){
  return -1;	
 }
 
-ProduitAcheter * buyProduct( Product *product, ProduitAcheter *productToBuy ) {
-	int n = lenBuy, codeP, indexP, i, qte;
+ProduitAcheter *buyProduct( Product *product, ProduitAcheter *productToBuy ) {
+	int n = lenBuy, codeP, indexP, i, qte, j;
 	bool exist;
 	productToBuy = realloc ( productToBuy , ++lenBuy * sizeof(ProduitAcheter));
 	
@@ -183,7 +184,12 @@ ProduitAcheter * buyProduct( Product *product, ProduitAcheter *productToBuy ) {
 	printf("Choisi Le Code De Product Que Vous Acheter: \n");
 	for( i = 0; i < len; i++) {
 		printTab();
-		printf("Code De Produit : %d |  Name Of Product : %s |  Prix : %.3fDH | PrixTTC : %.3fDH \n", product[i].codeP, product[i].nomP, product[i].prixP, product[i].prixTTC);
+		printf("Code De Produit : %d |  Name Of Product : %s ", product[i].codeP, product[i].nomP);
+		for( j = 0; j < 16 - strlen(product[i].nomP); j++) printf(" ");
+		printf("|  Prix : %.3fDH | PrixTTC : %.3fDH  | Quantite :%d \n", product[i].prixP, product[i].prixTTC, product[i].quantiteP);
+		printTab();
+		nchar('-', 100);
+			printf("\n");
 	}
 	do{
 		codeP = getInt();
@@ -196,7 +202,6 @@ ProduitAcheter * buyProduct( Product *product, ProduitAcheter *productToBuy ) {
 	scanf("%d", &qte );
 	
 	indexP = getIndexOfProduct(product, codeP);
-	printf("index  = %d ", indexP);
 	
 	if( product[indexP].quantiteP > qte){
 		product[indexP].quantiteP -= qte; // - la qte acheter
@@ -391,8 +396,8 @@ void productStatistics( Product *product, ProduitAcheter *productVendu ){
 	}
 	moyennePrixDay = totalPrixDay / count;
 	printTab();
-	printf("Min : %.3f; Max : %3.f ", minVenduDay, maxVenduDay);
-	printf("Total Prix : %.3f; Moyenne Prix : %.3f \n", totalPrixDay, moyennePrixDay );
+	printf("Mininum prix ventes :   %.3f \n\nMaximum prix ventes : %3.f \n\n", minVenduDay, maxVenduDay);
+	printf("Total des Prix   : %.3f  \n\nMoyenne Prix : %.3f \n", totalPrixDay, moyennePrixDay );
 	system("pause");
 }
 
@@ -411,7 +416,7 @@ return 	productFound;
 
 void historyProductVendu( Product *product, ProduitAcheter *productVendu ){
 	topbar();
-	int i;
+	int i, j;
 	Product productFound;
 	printTab();
 	printf("\t");
@@ -421,9 +426,13 @@ void historyProductVendu( Product *product, ProduitAcheter *productVendu ){
 	printf("\n\n\n");
 	for( i = 0; i < lenBuy ; i++ ){
 		productFound = findProduct( product, productVendu[i].codeP );
-		printTab();
-		printf("Nom de Produit : %s  |  Quantite : %d  ", productFound.nomP, productVendu[i].quantiteP );
-		printf("|  PrixTTC : %.3f  |  Date : %d:%d:%d  %d/%d/%d\n", productVendu[i].prixTTC, productVendu[i].date->tm_hour, productVendu[i].date->tm_min, productVendu[i].date->tm_sec, productVendu[i].date->tm_mday, productVendu[i].date->tm_mon + 1, productVendu[i].date->tm_year + 1900  );
+		
+		printf("|    Nom de Produit : %s  ", productFound.nomP );
+		for( j = 0; j<17-strlen( productFound.nomP ); j++) printf(" ");
+		printf("|     Quantite : %d  |     PrixTTC : %.3f  |     Date : %d:%d:%d le %d/%d/%d |\n", productVendu[i].quantiteP, productVendu[i].prixTTC, productVendu[i].date->tm_hour, productVendu[i].date->tm_min, productVendu[i].date->tm_sec, productVendu[i].date->tm_mday, productVendu[i].date->tm_mon + 1, productVendu[i].date->tm_year + 1900  );
+	
+	nchar('-', 100);
+	printf("\n");
 	}
 	
 	system("pause");

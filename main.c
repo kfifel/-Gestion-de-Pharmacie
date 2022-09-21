@@ -103,7 +103,7 @@ int main() {
 								if(!choix) break;
 							} 
 							break;
-				case  4  :   buyProduct( product, productAcheter ); break;
+				case  4  :   productAcheter = buyProduct( product, productAcheter ); break;
 				case  5  : 	while(1){
 								int choix;
 								do{	
@@ -129,14 +129,7 @@ int main() {
 				case  9  :  productStatistics( product, productAcheter ); break;
 				case  10 :  historyProductVendu( product, productAcheter ); break; 
 				case  11 :  getAllProductsVendu( productAcheter ); break; 
-				default  :  
-							{
-								topbar();
-								system("color 4");
-								printTab();
-								printf("         404 not found \n");
-							}
-							sleep(3);
+				default  :  error404();
 							goto again;
 			}
 			
