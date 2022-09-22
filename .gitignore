@@ -1,4 +1,6 @@
 *.exe
 *.gch
 /.idea
+*.o
+*.win
 
