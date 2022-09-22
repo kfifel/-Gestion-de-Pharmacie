@@ -4,7 +4,7 @@
 #include <string.h>
 #include <stdbool.h>
 	// la taille de tbleau principale
-	int len=3, lenBuy = 3;
+	int len=3, lenBuy = 0;
 #include "structers/structers.h"
 #include "prototypes/prototype.h"
 #include "services/pharmacie-services.h"
@@ -12,16 +12,12 @@
 
 int main() {
 	production();
-	//time
-	time_t rawtime;
-    time( &rawtime );
     
 	// le tableau principale
 	Product *product;
 	product = (Product *) malloc( 3 * sizeof(Product) );
 	
 	ProduitAcheter *productAcheter;
-	productAcheter = (ProduitAcheter *) malloc( lenBuy * sizeof(ProduitAcheter) );
 	// l'initialisation du tableau par un produit
 	product[0].codeP     =  1; 
 	strcpy(product[0].nomP , "Dolipran"); 
@@ -41,20 +37,7 @@ int main() {
 	product[2].prixTTC   =  product[2].prixP + product[2].prixP * 15/100;  
 	product[2].quantiteP =  49;
 	 
-	productAcheter[0].codeP = product[0].codeP;
-	productAcheter[0].prixTTC = product[0].prixTTC;
-	productAcheter[0].quantiteP = 3;
-	productAcheter[0].date =localtime( &rawtime );
 	
-	productAcheter[1].codeP = product[1].codeP;
-	productAcheter[1].prixTTC = product[1].prixTTC;
-	productAcheter[1].quantiteP = 2;
-	productAcheter[1].date =localtime( &rawtime );
-	
-	productAcheter[2].codeP = product[2].codeP;
-	productAcheter[2].prixTTC = product[2].prixTTC;
-	productAcheter[2].quantiteP = 1;
-	productAcheter[2].date =localtime( &rawtime );
 	// topbar de l'application
 	topbar();
 	
